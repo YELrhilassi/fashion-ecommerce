@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import colors from "res/colors";
 import fonts from "res/fonts";
-import styled from "styled-components";
+import images from "res/images";
+import { Button } from "components/shared";
+
+export default function HeaderNav() {
+  const [navScroll, setNavScroll] = useState(false);
+
+  const changeNav = () => {
+    window.scrollY >= 50 ? setNavScroll(true) : setNavScroll(false);
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    window.addEventListener("scroll", changeNav);
+  }, []);
+  console.log(navScroll);
+  return (
+    <StyledNav isScrolled={navScroll}>
+      <Logo src={images.logo} />
+      <HeaderMenu>
+        <MenuItem item="Men" />
+        <MenuItem item="Women" />
+        <MenuItem item="Kids" />
+        <MenuItem item="Collection" />
+        <MenuItem item="trends" />
+      </HeaderMenu>
+      <Button>login</Button>
+    </StyledNav>
+  );
+}
 
 // Navigation comp of the header
-export const HeaderNav = styled.nav`
+export const StyledNav = styled.nav`
   display: flex;
   align-items: center;
   gap: 5%;
@@ -31,10 +60,6 @@ export const HeaderNav = styled.nav`
 //=======================
 
 // logo Component
-const LogoDiv = styled.div`
-  min-width: max-content;
-`;
-
 export function Logo({ src }) {
   return (
     <LogoDiv>
@@ -44,6 +69,11 @@ export function Logo({ src }) {
     </LogoDiv>
   );
 }
+
+const LogoDiv = styled.div`
+  min-width: max-content;
+`;
+
 // =================
 
 // menu comp
@@ -75,28 +105,3 @@ const ItemLi = styled.li`
 `;
 
 // ===============
-
-// prymary button
-export const Button = styled.button`
-  cursor: pointer;
-  padding: ${(props) => props.padding || "0.6vw 2vw"};
-
-  font-family: ${fonts.title};
-  font-weight: 700;
-  font-size: ${(props) => (props.primary && "1.2vw") || "0.9rem"};
-  color: ${(props) => (props.primary && "white") || colors.darkPrimary};
-
-  line-height: 1rem;
-  text-transform: uppercase;
-  background-color: ${(props) =>
-    props.bgColor || (props.primary && colors.darkPrimary) || "transparent"};
-
-  border: solid 1px ${(props) => props.border || colors.darkPrimary};
-
-  transition: all 0.4s;
-
-  &:hover {
-    background-color: ${colors.lightPrimary};
-    color: white;
-  }
-`;
