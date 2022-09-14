@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 export const Section = styled.section`
   position: relative;
+  padding: ${(props) => props.padding};
+  margin: ${(props) => props.margin};
   height: ${(props) => props.height || "100%"};
 `;
 
@@ -11,11 +13,13 @@ export const Section = styled.section`
 export const Button = styled.button`
   cursor: pointer;
   padding: ${(props) => props.padding || "0.6vw 2vw"};
-
+  margin: ${(props) => props.margin};
   font-family: ${fonts.title};
   font-weight: 700;
-  font-size: ${(props) => (props.primary && "1.2vw") || "0.9rem"};
-  color: ${(props) => (props.primary && "white") || colors.darkPrimary};
+  font-size: ${(props) =>
+    props.txtSize || (props.primary && "1.2vw") || "0.9vw"};
+  color: ${(props) =>
+    props.txtColor || (props.primary && "white") || colors.darkPrimary};
 
   line-height: 1rem;
   text-transform: uppercase;
@@ -23,6 +27,8 @@ export const Button = styled.button`
     props.bgColor || (props.primary && colors.darkPrimary) || "transparent"};
 
   border: solid 1px ${(props) => props.border || colors.darkPrimary};
+  box-shadow: ${({ shadow }) =>
+    shadow && `0 23px 40px -15px ${colors.darkPrimary}`};
 
   transition: all 0.4s;
 
@@ -55,10 +61,12 @@ export const SectionFlex = styled.div`
   position: relative;
   display: flex;
   flex-direction: ${(props) => props.direction};
+  flex-wrap: ${(props) => props.$wrap && "wrap"};
+  justify-content: center;
   align-items: center;
   gap: ${(props) => props.gap};
-  top: 20%;
+  top: ${(props) => props.top || "20%"};
   width: 80%;
   margin: auto;
-  margin-top: ${(props) => props.top};
+  margin-top: ${(props) => props.marginTop};
 `;

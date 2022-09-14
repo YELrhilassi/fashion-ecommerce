@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import colors from "res/colors";
-import fonts from "res/fonts";
 import images from "res/images";
 import {
   Button,
@@ -13,7 +12,7 @@ import {
 export default function HeroSection() {
   return (
     <Section height="900px">
-      <HeaderCtr>
+      <HeroCtr>
         <SectionFlex>
           <HeroText>
             <HeadingH1 size="5vw">
@@ -21,7 +20,7 @@ export default function HeroSection() {
             </HeadingH1>
             <Text size="1.4vw">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-              ullamcorper congue eros, eget tincidunt ipsum eleifend ut.{" "}
+              ullamcorper congue eros, eget tincidunt ipsum eleifend ut.
             </Text>
             <Button primary padding="1.2vw 2.5vw">
               shop now
@@ -31,12 +30,12 @@ export default function HeroSection() {
             <img src={images.womanBlazer} alt="" />
           </HeroImg>
         </SectionFlex>
-      </HeaderCtr>
+      </HeroCtr>
     </Section>
   );
 }
 
-export const HeaderCtr = styled.div`
+export const HeroCtr = styled.div`
   background-color: ${colors.lightSecondary};
   background-image: url(${images.waves}), url(${images.gradiantRec}),
     url(${images.gradiantRec});
@@ -87,6 +86,6 @@ export const HeroImg = styled.div`
   width: 50%;
 
   img {
-    border-radius: 0 0 0 14vw;
+    border-radius: 0 0 0 40%;
   }
 `;

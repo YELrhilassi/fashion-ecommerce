@@ -39,14 +39,14 @@ export const StyledNav = styled.nav`
   gap: 5%;
   position: fixed;
 
-  padding: 3rem 9.5rem 0.7rem;
+  padding: ${(props) => (props.isScrolled ? "1.5rem" : "3rem")} 9.5rem 0.7rem;
   max-width: 1440px;
 
   left: 0;
   right: 0;
   margin: 0 auto;
 
-  background-color: ${(props) => (props.isScrolled ? "white" : "")};
+  background-color: ${(props) => props.isScrolled && "white"};
 
   transition: all 0.3s ease-in-out;
 
