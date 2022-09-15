@@ -9,7 +9,7 @@ export const Section = styled.section`
   height: ${(props) => props.height || "100%"};
 `;
 
-// primary button
+//======== primary button ===============//
 export const Button = styled.button`
   cursor: pointer;
   padding: ${(props) => props.padding || "0.6vw 2vw"};
@@ -37,6 +37,7 @@ export const Button = styled.button`
     color: white;
   }
 `;
+//=============================================================//
 
 //======== general text styling ===========//
 
@@ -55,18 +56,43 @@ export const Text = styled.p`
   line-height: 2.2vw;
   color: ${(props) => props.color || colors.darkPrimary};
 `;
-//=========================================//
+
+//====================Section styled components=====================//
 
 export const SectionFlex = styled.div`
   position: relative;
   display: flex;
   flex-direction: ${(props) => props.direction};
   flex-wrap: ${(props) => props.$wrap && "wrap"};
+
   justify-content: center;
   align-items: center;
   gap: ${(props) => props.gap};
-  top: ${(props) => props.top || "20%"};
+
+  top: ${(props) => props.top};
   width: 80%;
   margin: auto;
   margin-top: ${(props) => props.marginTop};
 `;
+
+export const SectionText = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: ${({ center }) => center && "center"};
+  align-items: ${({ center }) => center && "center"};
+
+  width: ${({ width }) => width || "50%"};
+`;
+
+export const SectionImg = styled.div`
+  display: flex;
+  justify-content: center;
+
+  width: ${({ width }) => (width ? width : "")};
+
+  img {
+    border-radius: ${({ borderRadius }) => borderRadius || 0};
+  }
+`;
+
+//========================================//

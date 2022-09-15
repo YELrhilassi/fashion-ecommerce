@@ -6,14 +6,15 @@ import {
   HeadingH1,
   Section,
   SectionFlex,
+  SectionImg,
   Text,
 } from "components/shared";
 
 export default function HeroSection() {
   return (
-    <Section height="900px">
+    <Section height="65vw">
       <HeroCtr>
-        <SectionFlex>
+        <SectionFlex top="20%">
           <HeroText>
             <HeadingH1 size="5vw">
               Find the Best Fashion Style for You
@@ -26,7 +27,7 @@ export default function HeroSection() {
               shop now
             </Button>
           </HeroText>
-          <HeroImg>
+          <HeroImg borderRadius="0 0 0 40%" width="50%">
             <img src={images.womanBlazer} alt="" />
           </HeroImg>
         </SectionFlex>
@@ -79,13 +80,6 @@ export const HeroText = styled.div`
 
 //================= Image section ============//
 
-export const HeroImg = styled.div`
-  display: flex;
-  justify-content: center;
-
-  width: 50%;
-
-  img {
-    border-radius: 0 0 0 40%;
-  }
+export const HeroImg = styled(SectionImg)`
+  width: fit-content;
 `;

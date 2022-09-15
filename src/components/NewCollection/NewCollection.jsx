@@ -13,7 +13,7 @@ import {
 
 export default function NewCollection() {
   return (
-    <SectionNewClt height="900px">
+    <SectionNewClt height="57vw">
       <NewCltFlex direction="column" top="12%" gap="1rem">
         <HeadingH1 size="4vw">New Collection</HeadingH1>
         <Text size="1.2vw">
