@@ -6,7 +6,7 @@ import {
   SectionText,
   Text,
 } from "components/shared";
-import React from "react";
+import React, { useState } from "react";
 import colors from "res/colors";
 import images from "res/images";
 import styled from "styled-components";
@@ -17,7 +17,7 @@ export default function AboutUs() {
       <AboutUsCtr>
         <SectionFlex>
           <AboutUsImg borderRadius="25% 0 0 0 ">
-            <img src={images.womanBlazer} alt="" />
+            <img src={images.aboutUsImg} alt="" />
           </AboutUsImg>
           <AboutUsText>
             <HeadingH1 size="3.5vw">Best Fashion Since 2014</HeadingH1>
@@ -66,19 +66,22 @@ const AboutUsText = styled(SectionText)`
     position: absolute;
     content: url(${images.dotVec});
     transform: scale(0.8);
-    left: -5vw;
-    top: -3vw;
+    left: -8vw;
+    top: -5vw;
   }
 `;
 
 const AboutUsImg = styled(SectionImg)`
   padding: 3vw;
   img {
-    width: 32vw;
+    width: 30vw;
   }
 `;
 
-function StatCompnt() {
+//=================================//
+function StatCompnt({ stats }) {
+  const [isFocus, setisFocus] = useState(false);
+
   return (
     <SectionText center>
       <HeadingH1 size="2.5vw">2014</HeadingH1>
@@ -91,7 +94,6 @@ const Stats = styled(SectionFlex)`
   position: relative;
   background-color: white;
 
-  /* padding: 1vw 2vw; */
   width: max-content;
   width: 46vw;
   height: 10vw;
@@ -99,5 +101,3 @@ const Stats = styled(SectionFlex)`
   left: 12vw;
   box-shadow: 0 23px 40px -15px #34251f82;
 `;
-
-// const StatCompnt = styled()

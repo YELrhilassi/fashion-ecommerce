@@ -16,7 +16,6 @@ export default function HeaderNav() {
     window.scrollTo(0, 0);
     window.addEventListener("scroll", changeNav);
   }, []);
-  console.log(navScroll);
   return (
     <StyledNav isScrolled={navScroll}>
       <Logo src={images.logo} />
