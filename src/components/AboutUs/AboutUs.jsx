@@ -7,10 +7,12 @@ import {
   Text,
 } from "components/shared";
 import useAnimateOnScroll from "hooks/useAnimateOnScroll";
-import React, { useEffect, useRef, useState } from "react";
-import colors from "res/colors";
+import useCounter from "hooks/useCounter";
+import React, { useRef } from "react";
+
 import images from "res/images";
-import styled, { css, keyframes } from "styled-components";
+import styled from "styled-components";
+import stats from "./stats";
 
 export default function AboutUs() {
   const targetRef = useRef(0);
@@ -32,22 +34,20 @@ export default function AboutUs() {
             </Text>
           </AboutUsText>
         </SectionFlex>
-        <Stats gap="2vw" ref={targetRef}>
-          <StatCompnt animate={isVisible} />
-          <StatCompnt animate={isVisible} />
-          <StatCompnt animate={isVisible} />
-        </Stats>
+        <StatCompnt justifyContent="space-between" ref={targetRef}>
+          <Stats stats={stats} isVisible={isVisible} />
+        </StatCompnt>
       </AboutUsCtr>
     </Section>
   );
 }
-
+//===============Img + text section================//
 const AboutUsCtr = styled.div`
   display: grid;
   position: relative;
   height: 100%;
 
-  //colapsing the sections
+  //colapsing the sections to lay stats' div on top
   div {
     grid-area: 1/2;
   }
@@ -80,68 +80,40 @@ const AboutUsImg = styled(SectionImg)`
     width: 30vw;
   }
 `;
+//========================================//
 
-//=================================//
-const Stats = styled(SectionFlex)`
+//================Stats component=================//
+const StatCompnt = styled(SectionFlex)`
   position: relative;
   background-color: white;
 
-  width: max-content;
-  width: 46vw;
+  /* width: max-content; */
+  max-width: 46vw;
   height: 10vw;
   top: 13vw;
   left: 12vw;
   box-shadow: 0 23px 40px -15px #34251f82;
 `;
 
-function StatCompnt({ animate }) {
-  const [counter, setcounter] = useState(0);
-  const counterRef = useRef(0);
-  const end = 1000;
-  const average = end / 300;
-
-  function updateCounter() {
-    if (counterRef.current < end) {
-      const result = Math.ceil(counterRef.current + average);
-      setcounter(result);
-      counterRef.current = result;
-      setTimeout(updateCounter, 20);
-    }
-    return counter;
-  }
-
-  useEffect(() => {
-    console.log(animate);
-    animate && updateCounter();
-    return () => {};
-  }, [animate]);
-
+function Stats({ stats = [], ...rest }) {
   return (
-    <SectionText center>
-      <HeadingH1 size="2.5vw">
-        <span>{counter}</span>
-      </HeadingH1>
-      <Text>FiFash Founded</Text>
-    </SectionText>
+    <>
+      {stats.map((item) => (
+        <CounterOnFocus key={item.id} {...item} {...rest} />
+      ))}
+    </>
   );
 }
 
-// const animateKey = keyframes`
-//   from {
-//     transform: rotate(0deg);
-//   }
-//   to {
-//     transform: rotate(360deg);
-//   }
-// `;
-
-// const animation = css`
-//   animation: ${animateKey} 2s linear;
-// `;
-
-// const Animated = styled(HeadingH1)`
-//   span {
-//     display: inline-block;
-//     ${({ animate }) => animate && animation};
-//   }
-// `;
+export function CounterOnFocus({ countTo, text = {}, isVisible }) {
+  const counter = useCounter(isVisible, countTo); //isVisible = false, end, increment = 100
+  return (
+    <SectionText center>
+      <HeadingH1 size="2.5vw">
+        <span>{`${text.before}${counter}${text.after}`}</span>
+      </HeadingH1>
+      <Text>{text.name}</Text>
+    </SectionText>
+  );
+}
+//==============================================//

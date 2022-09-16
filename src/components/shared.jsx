@@ -65,7 +65,7 @@ export const SectionFlex = styled.div`
   flex-direction: ${(props) => props.direction};
   flex-wrap: ${(props) => props.$wrap && "wrap"};
 
-  justify-content: center;
+  justify-content: ${({ justifyContent }) => justifyContent || "center"};
   align-items: center;
   gap: ${(props) => props.gap};
 
