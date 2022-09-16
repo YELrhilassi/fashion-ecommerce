@@ -6,12 +6,15 @@ import {
   SectionText,
   Text,
 } from "components/shared";
-import React, { useState } from "react";
+import useAnimateOnScroll from "hooks/useAnimateOnScroll";
+import React, { useEffect, useRef, useState } from "react";
 import colors from "res/colors";
 import images from "res/images";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 export default function AboutUs() {
+  const targetRef = useRef(0);
+  const isVisible = useAnimateOnScroll(targetRef, { threshold: 1 }); //target element to watch + optionts {root, rootMargin, threshold}
   return (
     <Section height="50vw">
       <AboutUsCtr>
@@ -29,10 +32,10 @@ export default function AboutUs() {
             </Text>
           </AboutUsText>
         </SectionFlex>
-        <Stats gap="2vw">
-          <StatCompnt />
-          <StatCompnt />
-          <StatCompnt />
+        <Stats gap="2vw" ref={targetRef}>
+          <StatCompnt animate={isVisible} />
+          <StatCompnt animate={isVisible} />
+          <StatCompnt animate={isVisible} />
         </Stats>
       </AboutUsCtr>
     </Section>
@@ -79,17 +82,6 @@ const AboutUsImg = styled(SectionImg)`
 `;
 
 //=================================//
-function StatCompnt({ stats }) {
-  const [isFocus, setisFocus] = useState(false);
-
-  return (
-    <SectionText center>
-      <HeadingH1 size="2.5vw">2014</HeadingH1>
-      <Text>FiFash Founded</Text>
-    </SectionText>
-  );
-}
-
 const Stats = styled(SectionFlex)`
   position: relative;
   background-color: white;
@@ -101,3 +93,55 @@ const Stats = styled(SectionFlex)`
   left: 12vw;
   box-shadow: 0 23px 40px -15px #34251f82;
 `;
+
+function StatCompnt({ animate }) {
+  const [counter, setcounter] = useState(0);
+  const counterRef = useRef(0);
+  const end = 1000;
+  const average = end / 300;
+
+  function updateCounter() {
+    if (counterRef.current < end) {
+      const result = Math.ceil(counterRef.current + average);
+      setcounter(result);
+      counterRef.current = result;
+      setTimeout(updateCounter, 20);
+    }
+    return counter;
+  }
+
+  useEffect(() => {
+    console.log(animate);
+    animate && updateCounter();
+    return () => {};
+  }, [animate]);
+
+  return (
+    <SectionText center>
+      <HeadingH1 size="2.5vw">
+        <span>{counter}</span>
+      </HeadingH1>
+      <Text>FiFash Founded</Text>
+    </SectionText>
+  );
+}
+
+// const animateKey = keyframes`
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// `;
+
+// const animation = css`
+//   animation: ${animateKey} 2s linear;
+// `;
+
+// const Animated = styled(HeadingH1)`
+//   span {
+//     display: inline-block;
+//     ${({ animate }) => animate && animation};
+//   }
+// `;
